@@ -1,0 +1,52 @@
+
+<div *ngIf="adresse">
+    <h2><span>Adresse</span> {{adresse.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Numero</span></dt>
+        <dd>
+            <span>{{adresse.numero}}</span>
+        </dd>
+        <dt><span>Compl Num</span></dt>
+        <dd>
+            <span>{{adresse.complNum}}</span>
+        </dd>
+        <dt><span>Rue</span></dt>
+        <dd>
+            <span>{{adresse.rue}}</span>
+        </dd>
+        <dt><span>Code Postal</span></dt>
+        <dd>
+            <span>{{adresse.codePostal}}</span>
+        </dd>
+        <dt><span>Ville</span></dt>
+        <dd>
+            <span>{{adresse.ville}}</span>
+        </dd>
+        <dt><span>Pays</span></dt>
+        <dd>
+            <span>{{adresse.pays}}</span>
+        </dd>
+        <dt><span>Personne</span></dt>
+        <dd>
+            <div *ngIf="adresse.personne">
+                <a [routerLink]="['/personne', adresse.personne?.id]">{{adresse.personne?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'adresse/'+ adresse.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

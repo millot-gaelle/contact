@@ -1,0 +1,48 @@
+entity Personne {
+	nom String,
+    prenom String,
+    numRpps String
+}
+
+entity Adresse {
+	numero Integer,
+    complNum String,
+    rue String,
+    codePostal String,
+    ville String,
+    pays String
+    
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity Telephone {
+	type Type required,
+    numero String
+}
+
+enum Type {
+    FIXE, PORTABLE
+}
+
+
+relationship ManyToOne {
+	Adresse{personne} to Personne
+}
+
+relationship ManyToOne {
+	Telephone{personne} to Personne
+}
+
+
+// Set pagination options
+paginate Personne with pagination
+
+// Use Data Transfert Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl 
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

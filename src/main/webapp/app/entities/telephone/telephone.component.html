@@ -1,0 +1,66 @@
+<div>
+    <h2>
+        <span>Telephones</span>
+        <button class="btn btn-primary float-right jh-create-entity create-telephone" [routerLink]="['/', { outlets: { popup: ['telephone-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Telephone
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="telephones">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Type</span></th>
+            <th><span>Numero</span></th>
+            <th><span>Personne</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let telephone of telephones ;trackBy: trackId">
+                <td><a [routerLink]="['../telephone', telephone.id ]">{{telephone.id}}</a></td>
+                <td>{{telephone.type}}</td>
+                <td>{{telephone.numero}}</td>
+                <td>
+                    <div *ngIf="telephone.personne">
+                        <a [routerLink]="['../personne', telephone.personne?.id ]" >{{telephone.personne?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../telephone', telephone.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'telephone/'+ telephone.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'telephone/'+ telephone.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
