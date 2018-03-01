@@ -5,6 +5,7 @@ import { SERVER_API_URL } from '../../app.constants';
 
 import { Adresse } from './adresse.model';
 import { createRequestOption } from '../../shared';
+import { Personne } from '../personne/personne.model';
 
 export type EntityResponseType = HttpResponse<Adresse>;
 
@@ -30,6 +31,12 @@ export class AdresseService {
     find(id: number): Observable<EntityResponseType> {
         return this.http.get<Adresse>(`${this.resourceUrl}/${id}`, { observe: 'response'})
             .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+
+    findByPersonne(id: number): Observable<HttpResponse<Adresse[]>> {
+        const options = createRequestOption({'id': id});
+        return this.http.get<Adresse[]>(`${this.resourceUrl}/byPerson`, { params: options, observe: 'response' })
+            .map((res: HttpResponse<Adresse[]>) => this.convertArrayResponse(res));
     }
 
     query(req?: any): Observable<HttpResponse<Adresse[]>> {

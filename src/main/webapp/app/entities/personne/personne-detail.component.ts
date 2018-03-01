@@ -1,3 +1,5 @@
+import { Adresse } from '../adresse/adresse.model';
+import { AdresseService } from '../adresse/adresse.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
@@ -14,12 +16,14 @@ import { PersonneService } from './personne.service';
 export class PersonneDetailComponent implements OnInit, OnDestroy {
 
     personne: Personne;
+    private adresseList: Adresse[];
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
     constructor(
         private eventManager: JhiEventManager,
         private personneService: PersonneService,
+        private adresseService: AdresseService,
         private route: ActivatedRoute
     ) {
     }
@@ -35,7 +39,10 @@ export class PersonneDetailComponent implements OnInit, OnDestroy {
         this.personneService.find(id)
             .subscribe((personneResponse: HttpResponse<Personne>) => {
                 this.personne = personneResponse.body;
-            });
+                this.adresseService.findByPersonne(id).subscribe((adresseResponse: HttpResponse<Adresse[]>) => {
+                    this.adresseList = adresseResponse.body;
+                  });
+                });
     }
     previousState() {
         window.history.back();

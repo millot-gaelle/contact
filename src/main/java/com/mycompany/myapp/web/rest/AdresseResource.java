@@ -2,6 +2,8 @@ package com.mycompany.myapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.mycompany.myapp.domain.Adresse;
+import com.mycompany.myapp.domain.Personne;
+import com.mycompany.myapp.repository.AdresseRepository;
 import com.mycompany.myapp.service.AdresseService;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
@@ -29,9 +31,11 @@ public class AdresseResource {
     private static final String ENTITY_NAME = "adresse";
 
     private final AdresseService adresseService;
+    private final AdresseRepository adresseRepository;
 
-    public AdresseResource(AdresseService adresseService) {
+    public AdresseResource(AdresseService adresseService, AdresseRepository adresseRepository) {
         this.adresseService = adresseService;
+        this.adresseRepository = adresseRepository;
     }
 
     /**
@@ -86,6 +90,12 @@ public class AdresseResource {
     public List<Adresse> getAllAdresses() {
         log.debug("REST request to get all Adresses");
         return adresseService.findAll();
+        }
+
+    @GetMapping("/adresses/byPerson")
+    public List<Adresse> getAllByPersonne(Personne personne) {
+        log.debug("REST request to get all Adresses");
+        return adresseRepository.findAllByPersonne(personne);
         }
 
     /**

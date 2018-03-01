@@ -31,7 +31,7 @@
         <dt><span>Personne</span></dt>
         <dd>
             <div *ngIf="adresse.personne">
-                <a [routerLink]="['/personne', adresse.personne?.id]">{{adresse.personne?.id}}</a>
+                <a [routerLink]="['/personne', adresse.personne?.id]">{{adresse.personne?.prenom + ' ' + adresse.personne?.nom}}</a>
             </div>
         </dd>
     </dl>

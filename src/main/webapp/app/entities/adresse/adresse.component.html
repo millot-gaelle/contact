@@ -38,7 +38,7 @@
                 <td>{{adresse.pays}}</td>
                 <td>
                     <div *ngIf="adresse.personne">
-                        <a [routerLink]="['../personne', adresse.personne?.id ]" >{{adresse.personne?.id}}</a>
+                        <a [routerLink]="['../personne', adresse.personne?.id ]" >{{adresse.personne?.prenom + ' ' + adresse.personne?.nom}}</a>
                     </div>
                 </td>
                 <td class="text-right">
