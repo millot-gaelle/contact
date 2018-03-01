@@ -3,8 +3,9 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Account, LoginModalService, Principal } from '../shared';
-import { Personne, PersonneService } from 'src/main/webapp/app/entities/personne';
 import { HttpResponse } from '@angular/common/http';
+import { Personne } from '../entities/personne';
+import { PersonneService } from '../entities/personne/personne.service';
 
 @Component({
     selector: 'jhi-home',
@@ -18,12 +19,12 @@ export class HomeComponent implements OnInit {
     account: Account;
     modalRef: NgbModalRef;
     personneList: Personne[];
-    private personneService: PersonneService;
 
     constructor(
         private principal: Principal,
         private loginModalService: LoginModalService,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        private personneService: PersonneService
     ) {
     }
 
@@ -32,13 +33,13 @@ export class HomeComponent implements OnInit {
             this.account = account;
         });
         this.registerAuthenticationSuccess();
+    }
+
+    registerAuthenticationSuccess() {
         this.personneService.query().subscribe((personneResponse: HttpResponse<Personne[]>) => {
             this.personneList = personneResponse.body;
 
         });
-    }
-
-    registerAuthenticationSuccess() {
         this.eventManager.subscribe('authenticationSuccess', (message) => {
             this.principal.identity().then((account) => {
                 this.account = account;

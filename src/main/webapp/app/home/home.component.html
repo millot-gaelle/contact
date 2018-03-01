@@ -20,9 +20,7 @@
                 <span>You don't have an account yet?</span>
                 <a class="alert-link" routerLink="register">Register a new account</a>
             </div>
-        </div>
-
-        <div *ngFor="let personne of personneList ;trackBy: trackId">
+            <div *ngFor="let personne of personneList ;">
 
                 <dl class="row-md jh-entity-details">
                         <dt><span>Nom</span></dt>
@@ -39,6 +37,9 @@
                         </dd>
                     </dl>
                 </div>
+        </div>
+
+
 
 
     </div>
